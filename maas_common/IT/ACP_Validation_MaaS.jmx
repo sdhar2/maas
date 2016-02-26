@@ -1,0 +1,1183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="2.8" jmeter="2.13 r1665067">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">true</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <TestFragmentController guiclass="TestFragmentControllerGui" testclass="TestFragmentController" testname="Test Fragment  - MaaS - Messaging as a Service" enabled="true"/>
+      <hashTree>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="Revision History" enabled="true">
+          <stringProp name="BeanShellSampler.query">// Tests Created by Karuna Gaur
+// Check if Maas VIP can ping DockerRepo</stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - set serviceName = MaaS" enabled="true">
+          <stringProp name="BeanShellSampler.query">vars.put(&quot;serviceName&quot;,&quot;MaaS&quot;);</stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell  -get timestamp" enabled="true">
+          <stringProp name="TestPlan.comments">timestamp to display in results tree</stringProp>
+          <stringProp name="BeanShellSampler.query">import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+Date now = new Date(); // get current time
+
+SimpleDateFormat sdf = new SimpleDateFormat(&quot;MM/dd/yyyy h:mm:ss a&quot;);     
+String myStartdate = sdf.format(now); // format date as string
+vars.put(&quot;myStartdate&quot;,myStartdate); // save date to JMeter variable named &quot;mydate&quot;</stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BEGIN MaaS - Messaging as a Sevice for Site Name = ${__property(serverSite,)} at ${myStartdate}" enabled="true">
+          <stringProp name="TestPlan.comments">display siteName and Start time </stringProp>
+          <stringProp name="BeanShellSampler.query">//log.info(&quot;**********&quot;);
+//log.info(&quot;Start of test for MaaS - Messaging as a Service for &quot; + props.getProperty(&quot;siteName&quot;) + &quot; at &quot; + vars.get(&quot;myStartdate&quot;));
+//log.info(&quot;**********&quot;); </stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="*****" enabled="true">
+          <stringProp name="BeanShellSampler.query"></stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="***** MaaS - Messaging as a Service *****" enabled="true">
+          <stringProp name="BeanShellSampler.query">log.info(&quot;*****************************************************&quot;);
+log.info(&quot;MaaS : Messaging as a Service&quot;);
+log.info(&quot;-&quot;);
+log.info(&quot;Start of test for &quot; + props.getProperty(&quot;siteName&quot;) + &quot; at &quot; + vars.get(&quot;myStartdate&quot;));
+log.info(&quot;______________________________________________________&quot;);</stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="*****" enabled="true">
+          <stringProp name="BeanShellSampler.query"></stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <org.apache.jmeter.protocol.ssh.sampler.SSHSampler guiclass="TestBeanGUI" testclass="org.apache.jmeter.protocol.ssh.sampler.SSHSampler" testname="SSH Command -  ${__property(dockerRepoNode,)} - /usr/bin/ansible -i ${__P(inventoryFile,/home/docker/cloud-service-scripts/playbooks/inventory)} maas --list-host 2&gt;&amp;1" enabled="true">
+          <stringProp name="hostname">${__property(dockerRepoNode,)}</stringProp>
+          <intProp name="port">22</intProp>
+          <stringProp name="username">${__property(username,)}</stringProp>
+          <stringProp name="password">${__property(password,)}</stringProp>
+          <stringProp name="command">/usr/bin/ansible -i ${__P(inventoryFile,/home/docker/cloud-service-scripts/playbooks/inventory)} maas --list-hosts 2&gt;&amp;1</stringProp>
+        </org.apache.jmeter.protocol.ssh.sampler.SSHSampler>
+        <hashTree>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">MaaSHostList</stringProp>
+            <stringProp name="RegexExtractor.regex">(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})</stringProp>
+            <stringProp name="RegexExtractor.template">$0$</stringProp>
+            <stringProp name="RegexExtractor.default">not_defined</stringProp>
+            <stringProp name="RegexExtractor.match_number">-1</stringProp>
+          </RegexExtractor>
+          <hashTree/>
+        </hashTree>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - set Test Name" enabled="true">
+          <stringProp name="BeanShellSampler.query">if ( props.getProperty(&quot;inventoryFile&quot;) != null) {
+   inventoryFileName = props.getProperty(&quot;inventoryFile&quot;);
+}
+else {
+	
+	inventoryFileName = &quot;/home/docker/cloud-service-scripts/playbooks/inventory&quot;;
+}
+testName=&quot; /usr/bin/ansible -i &quot; + inventoryFileName + &quot; maas --list-hosts 2&gt;&amp;1 &quot;;
+
+vars.put(&quot;testName&quot;,testName);
+ 
+</stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - default status to PASSED" enabled="true">
+          <stringProp name="BeanShellSampler.query">vars.put(&quot;status&quot;,&quot; PASSED &quot;);
+ 
+</stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <org.apache.jmeter.protocol.ssh.sampler.SSHCommandSampler guiclass="TestBeanGUI" testclass="org.apache.jmeter.protocol.ssh.sampler.SSHCommandSampler" testname="SSH Command - /usr/bin/ansible -i ${__P(inventoryFile,/home/docker/cloud-service-scripts/playbooks/inventory)} maas --list-hosts 2&gt;&amp;1" enabled="true">
+          <stringProp name="hostname">${__property(dockerRepoNode,)}</stringProp>
+          <intProp name="port">22</intProp>
+          <intProp name="connectionTimeout">500000</intProp>
+          <stringProp name="username">${__property(username,)}</stringProp>
+          <stringProp name="password">${__property(password,)}</stringProp>
+          <stringProp name="sshkeyfile"></stringProp>
+          <stringProp name="passphrase"></stringProp>
+          <stringProp name="command">/usr/bin/ansible -i ${__P(inventoryFile,/home/docker/cloud-service-scripts/playbooks/inventory)} maas --list-hosts 2&gt;&amp;1</stringProp>
+          <boolProp name="useReturnCode">false</boolProp>
+          <boolProp name="printStdErr">false</boolProp>
+        </org.apache.jmeter.protocol.ssh.sampler.SSHCommandSampler>
+        <hashTree>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor (?:\S+ ){1}(\S+)" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">MaaSHostList</stringProp>
+            <stringProp name="RegexExtractor.regex">(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})</stringProp>
+            <stringProp name="RegexExtractor.template">$0$</stringProp>
+            <stringProp name="RegexExtractor.default">not_defined</stringProp>
+            <stringProp name="RegexExtractor.match_number">-1</stringProp>
+            <stringProp name="TestPlan.comments">(?:\S+ ){1} matches 1 word (\S+) will get the next word 
+which is the servername in the following response 
+&quot;Linux apiproxyt05 2.6.18-194.el5 #1 SMP Tue Mar 16 21:52:39 EDT 2010 x86_64 x86_64 x86_64 GNU/Linux&quot;</stringProp>
+          </RegexExtractor>
+          <hashTree/>
+        </hashTree>
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller - log FAILURES" enabled="true">
+          <stringProp name="IfController.condition">${JMeterThread.last_sample_ok}==false</stringProp>
+          <boolProp name="IfController.evaluateAll">false</boolProp>
+        </IfController>
+        <hashTree>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler" enabled="true">
+            <stringProp name="BeanShellSampler.query">// FAILED TESTS
+vars.put(&quot;status&quot;,&quot; FAILED &quot;);
+
+failedTests = props.getProperty(&quot;testsFailed&quot;);
+int failed = Integer.parseInt(failedTests);
+failed = failed + 1 ;
+//failedTests  = failedTests + 1 ;
+props.setProperty(&quot;testsFailed&quot;,failed.toString());
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+        </hashTree>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - calc total Tests" enabled="true">
+          <stringProp name="BeanShellSampler.query">// Increment Total Test Count
+//
+
+totalTests = props.getProperty(&quot;testsTotal&quot;);
+failedTests = props.getProperty(&quot;testsFailed&quot;);
+passedTests = props.getProperty(&quot;testsPassed&quot;);
+  
+int tot = Integer.parseInt(totalTests);
+int fail = Integer.parseInt(failedTests);
+tot  = tot + 1;
+int passed =  tot - fail;
+
+props.setProperty(&quot;testsTotal&quot;,tot.toString());
+props.setProperty(&quot;testsPassed&quot;,passed.toString());
+</stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - log status" enabled="true">
+          <stringProp name="BeanShellSampler.query">SPACE = &quot; &quot;;
+PAD = &quot;     &quot;;
+COLON = &quot;:&quot;;
+
+log.info( PAD + &quot;${__P(LOGMARKER,__ACP__)}&quot; + SPACE + vars.get(&quot;serviceName&quot;) + COLON +  SPACE + vars.get(&quot;testName&quot;) + vars.get(&quot;status&quot;) );</stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="*****" enabled="true">
+          <stringProp name="BeanShellSampler.query"></stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <ForeachController guiclass="ForeachControlPanel" testclass="ForeachController" testname="ForEach Controller - for each IP in the Inventory file create the Node alias" enabled="true">
+          <stringProp name="ForeachController.inputVal">MaaSHostList</stringProp>
+          <stringProp name="ForeachController.returnVal">MaaS_host</stringProp>
+          <boolProp name="ForeachController.useSeparator">true</boolProp>
+        </ForeachController>
+        <hashTree>
+          <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="Counter" enabled="true">
+            <stringProp name="CounterConfig.start">1</stringProp>
+            <stringProp name="CounterConfig.end"></stringProp>
+            <stringProp name="CounterConfig.incr">1</stringProp>
+            <stringProp name="CounterConfig.name">nodeNum</stringProp>
+            <stringProp name="CounterConfig.format"></stringProp>
+            <boolProp name="CounterConfig.per_user">false</boolProp>
+          </CounterConfig>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="processing Node${nodeNum} : IP Address ${MaaS_host}" enabled="true">
+            <stringProp name="BeanShellSampler.query">
+log.info(&quot;MaaS VM Node&quot;+vars.get(&quot;nodeNum&quot;) + &quot; IP Address: &quot; + vars.get(&quot;MaaS_host&quot;));</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="*****" enabled="true">
+            <stringProp name="BeanShellSampler.query"></stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler MaaS Pre Run" enabled="true">
+            <boolProp name="displayJMeterProperties">true</boolProp>
+            <boolProp name="displayJMeterVariables">true</boolProp>
+            <boolProp name="displaySystemProperties">false</boolProp>
+          </DebugSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="*****" enabled="true">
+            <stringProp name="BeanShellSampler.query"></stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - set Test Name" enabled="true">
+            <stringProp name="BeanShellSampler.query">testName=&quot; uname -n &quot;;
+vars.put(&quot;testName&quot;,testName);
+ 
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - default status to PASSED" enabled="true">
+            <stringProp name="BeanShellSampler.query">vars.put(&quot;status&quot;,&quot; PASSED &quot;);
+ 
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <org.apache.jmeter.protocol.ssh.sampler.SSHSampler guiclass="TestBeanGUI" testclass="org.apache.jmeter.protocol.ssh.sampler.SSHSampler" testname="SSH Command - hostname is ${setNode}   " enabled="false">
+            <stringProp name="TestPlan.comments">${__property(hostNameIP,)}</stringProp>
+            <stringProp name="command">uname -n</stringProp>
+            <stringProp name="hostname">${__property(dockerRepoNode,)}</stringProp>
+            <stringProp name="password">${__property(password,)}</stringProp>
+            <intProp name="port">22</intProp>
+            <stringProp name="username">${__property(username,)}</stringProp>
+          </org.apache.jmeter.protocol.ssh.sampler.SSHSampler>
+          <hashTree>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor (?:\S+ ){1}(\S+)" enabled="true">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">serverName</stringProp>
+              <stringProp name="RegexExtractor.regex">(?:\S+ ){1}(\S+)</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">noName</stringProp>
+              <stringProp name="RegexExtractor.match_number">-1</stringProp>
+              <stringProp name="TestPlan.comments">(?:\S+ ){1} matches 1 word (\S+) will get the next word 
+which is the servername in the following response 
+&quot;Linux apiproxyt05 2.6.18-194.el5 #1 SMP Tue Mar 16 21:52:39 EDT 2010 x86_64 x86_64 x86_64 GNU/Linux&quot;</stringProp>
+            </RegexExtractor>
+            <hashTree/>
+          </hashTree>
+          <org.apache.jmeter.protocol.ssh.sampler.SSHCommandSampler guiclass="TestBeanGUI" testclass="org.apache.jmeter.protocol.ssh.sampler.SSHCommandSampler" testname="SSH Command - uname -n" enabled="true">
+            <stringProp name="hostname">${MaaS_host}</stringProp>
+            <intProp name="port">22</intProp>
+            <intProp name="connectionTimeout">500000</intProp>
+            <stringProp name="username">${__property(username,)}</stringProp>
+            <stringProp name="password">${__property(password,)}</stringProp>
+            <stringProp name="sshkeyfile"></stringProp>
+            <stringProp name="passphrase"></stringProp>
+            <stringProp name="command">uname -n</stringProp>
+            <boolProp name="useReturnCode">false</boolProp>
+            <boolProp name="printStdErr">false</boolProp>
+            <stringProp name="TestPlan.comments">${__property(dockerRepoNode,)}</stringProp>
+          </org.apache.jmeter.protocol.ssh.sampler.SSHCommandSampler>
+          <hashTree>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor (?:\S+ ){1}(\S+)" enabled="true">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">serverName</stringProp>
+              <stringProp name="RegexExtractor.regex">(?:\S+ ){1}(\S+)</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">noName</stringProp>
+              <stringProp name="RegexExtractor.match_number">-1</stringProp>
+              <stringProp name="TestPlan.comments">(?:\S+ ){1} matches 1 word (\S+) will get the next word 
+which is the servername in the following response 
+&quot;Linux apiproxyt05 2.6.18-194.el5 #1 SMP Tue Mar 16 21:52:39 EDT 2010 x86_64 x86_64 x86_64 GNU/Linux&quot;</stringProp>
+            </RegexExtractor>
+            <hashTree/>
+          </hashTree>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller - log FAILURES" enabled="true">
+            <stringProp name="IfController.condition">${JMeterThread.last_sample_ok}==false</stringProp>
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+          </IfController>
+          <hashTree>
+            <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler" enabled="true">
+              <stringProp name="BeanShellSampler.query">// FAILED TESTS
+vars.put(&quot;status&quot;,&quot; FAILED &quot;);
+
+failedTests = props.getProperty(&quot;testsFailed&quot;);
+int failed = Integer.parseInt(failedTests);
+failed = failed + 1 ;
+//failedTests  = failedTests + 1 ;
+props.setProperty(&quot;testsFailed&quot;,failed.toString());
+</stringProp>
+              <stringProp name="BeanShellSampler.filename"></stringProp>
+              <stringProp name="BeanShellSampler.parameters"></stringProp>
+              <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+            </BeanShellSampler>
+            <hashTree/>
+          </hashTree>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - calc total Tests" enabled="true">
+            <stringProp name="BeanShellSampler.query">// Increment Total Test Count
+//
+
+totalTests = props.getProperty(&quot;testsTotal&quot;);
+failedTests = props.getProperty(&quot;testsFailed&quot;);
+passedTests = props.getProperty(&quot;testsPassed&quot;);
+  
+int tot = Integer.parseInt(totalTests);
+int fail = Integer.parseInt(failedTests);
+tot  = tot + 1;
+int passed =  tot - fail;
+
+props.setProperty(&quot;testsTotal&quot;,tot.toString());
+props.setProperty(&quot;testsPassed&quot;,passed.toString());
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - log status" enabled="true">
+            <stringProp name="BeanShellSampler.query">SPACE = &quot; &quot;;
+PAD = &quot;     &quot;;
+COLON = &quot;:&quot;;
+
+log.info( PAD + &quot;${__P(LOGMARKER,__ACP__)}&quot; + SPACE + vars.get(&quot;serviceName&quot;) + COLON +  SPACE + vars.get(&quot;testName&quot;) + vars.get(&quot;status&quot;) );</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="*****" enabled="true">
+            <stringProp name="BeanShellSampler.query"></stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - set Test Name" enabled="true">
+            <stringProp name="BeanShellSampler.query">testName=&quot; host maas &quot;;
+vars.put(&quot;testName&quot;,testName);
+ 
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - default status to PASSED" enabled="true">
+            <stringProp name="BeanShellSampler.query">vars.put(&quot;status&quot;,&quot; PASSED &quot;);
+ 
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <org.apache.jmeter.protocol.ssh.sampler.SSHSampler guiclass="TestBeanGUI" testclass="org.apache.jmeter.protocol.ssh.sampler.SSHSampler" testname="SSH Command -Verify DNS has an entry for etcdcluster" enabled="false">
+            <stringProp name="TestPlan.comments">${__property(hostNameIP,)}</stringProp>
+            <stringProp name="command">host maas</stringProp>
+            <stringProp name="hostname">${__property(dockerRepoNode,)}</stringProp>
+            <stringProp name="password">${__property(password,)}</stringProp>
+            <intProp name="port">22</intProp>
+            <stringProp name="username">${__property(username,)}</stringProp>
+          </org.apache.jmeter.protocol.ssh.sampler.SSHSampler>
+          <hashTree>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor (?:\S+ ){1}(\S+)" enabled="true">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">maasHost</stringProp>
+              <stringProp name="RegexExtractor.regex">(.*)</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">not_defined</stringProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+              <stringProp name="TestPlan.comments">(?:\S+ ){1} matches 1 word (\S+) will get the next word 
+which is the servername in the following response 
+&quot;Linux apiproxyt05 2.6.18-194.el5 #1 SMP Tue Mar 16 21:52:39 EDT 2010 x86_64 x86_64 x86_64 GNU/Linux&quot;</stringProp>
+            </RegexExtractor>
+            <hashTree/>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" enabled="true">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">maasHost_IP</stringProp>
+              <stringProp name="RegexExtractor.regex">\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})</stringProp>
+              <stringProp name="RegexExtractor.template">$0$</stringProp>
+              <stringProp name="RegexExtractor.default">not_defined</stringProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+            </RegexExtractor>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - host maas" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-611518385">(?i)maas.${__property(defaultDNSzone,)} has address</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">2</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <org.apache.jmeter.protocol.ssh.sampler.SSHCommandSampler guiclass="TestBeanGUI" testclass="org.apache.jmeter.protocol.ssh.sampler.SSHCommandSampler" testname="SSH Command - host maas" enabled="true">
+            <stringProp name="hostname">${MaaS_host}</stringProp>
+            <intProp name="port">22</intProp>
+            <intProp name="connectionTimeout">500000</intProp>
+            <stringProp name="username">${__property(username,)}</stringProp>
+            <stringProp name="password">${__property(password,)}</stringProp>
+            <stringProp name="sshkeyfile"></stringProp>
+            <stringProp name="passphrase"></stringProp>
+            <stringProp name="command">host maas</stringProp>
+            <boolProp name="useReturnCode">false</boolProp>
+            <boolProp name="printStdErr">false</boolProp>
+            <stringProp name="TestPlan.comments">${__property(dockerRepoNode,)}</stringProp>
+          </org.apache.jmeter.protocol.ssh.sampler.SSHCommandSampler>
+          <hashTree>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor (?:\S+ ){1}(\S+)" enabled="true">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">maasHost</stringProp>
+              <stringProp name="RegexExtractor.regex">(.*)</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">not_defined</stringProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+              <stringProp name="TestPlan.comments">(?:\S+ ){1} matches 1 word (\S+) will get the next word 
+which is the servername in the following response 
+&quot;Linux apiproxyt05 2.6.18-194.el5 #1 SMP Tue Mar 16 21:52:39 EDT 2010 x86_64 x86_64 x86_64 GNU/Linux&quot;</stringProp>
+            </RegexExtractor>
+            <hashTree/>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" enabled="true">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">maasHost_IP</stringProp>
+              <stringProp name="RegexExtractor.regex">\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}</stringProp>
+              <stringProp name="RegexExtractor.template">$0$</stringProp>
+              <stringProp name="RegexExtractor.default">not_defined</stringProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+            </RegexExtractor>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - host maas" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-611518385">(?i)maas.${__property(defaultDNSzone,)} has address</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">2</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller - log FAILURES" enabled="true">
+            <stringProp name="IfController.condition">${JMeterThread.last_sample_ok}==false</stringProp>
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+          </IfController>
+          <hashTree>
+            <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler" enabled="true">
+              <stringProp name="BeanShellSampler.query">// FAILED TESTS
+vars.put(&quot;status&quot;,&quot; FAILED &quot;);
+
+failedTests = props.getProperty(&quot;testsFailed&quot;);
+int failed = Integer.parseInt(failedTests);
+failed = failed + 1 ;
+//failedTests  = failedTests + 1 ;
+props.setProperty(&quot;testsFailed&quot;,failed.toString());
+</stringProp>
+              <stringProp name="BeanShellSampler.filename"></stringProp>
+              <stringProp name="BeanShellSampler.parameters"></stringProp>
+              <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+            </BeanShellSampler>
+            <hashTree/>
+          </hashTree>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="----- host maas  = ${maasHost}" enabled="true">
+            <stringProp name="BeanShellSampler.query"></stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="----- maas VIP = ${maasHost_IP}" enabled="true">
+            <stringProp name="BeanShellSampler.query">//update log
+ 
+log.info(&quot;maas VIP: &quot; + vars.get(&quot;maasHost_IP&quot;) );</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="----- maas URL http://${maasHost_IP}:15672" enabled="true">
+            <stringProp name="BeanShellSampler.query">//update log
+//elkHost_IP=vars.get(&quot;elkHost_IP&quot;);
+log.info(&quot;maas RabbitMQ URL: http://${maasHost_IP}:15672 &quot; );</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - calc total Tests" enabled="true">
+            <stringProp name="BeanShellSampler.query">// Increment Total Test Count
+//
+
+totalTests = props.getProperty(&quot;testsTotal&quot;);
+failedTests = props.getProperty(&quot;testsFailed&quot;);
+passedTests = props.getProperty(&quot;testsPassed&quot;);
+  
+int tot = Integer.parseInt(totalTests);
+int fail = Integer.parseInt(failedTests);
+tot  = tot + 1;
+int passed =  tot - fail;
+
+props.setProperty(&quot;testsTotal&quot;,tot.toString());
+props.setProperty(&quot;testsPassed&quot;,passed.toString());
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - log status" enabled="true">
+            <stringProp name="BeanShellSampler.query">SPACE = &quot; &quot;;
+PAD = &quot;     &quot;;
+COLON = &quot;:&quot;;
+
+log.info( PAD + &quot;${__P(LOGMARKER,__ACP__)}&quot; + SPACE + vars.get(&quot;serviceName&quot;) + COLON +  SPACE + vars.get(&quot;testName&quot;) + vars.get(&quot;status&quot;) );</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="*****" enabled="true">
+            <stringProp name="BeanShellSampler.query"></stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller - GUI_mode == &quot;true&quot;" enabled="true">
+            <stringProp name="IfController.condition">&quot;${__property(GUI_mode,)}&quot; ==  &quot;true&quot;</stringProp>
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+          </IfController>
+          <hashTree>
+            <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="OS Process Sampler - Launch RabbitMQ webpage" enabled="true">
+              <boolProp name="SystemSampler.checkReturnCode">false</boolProp>
+              <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
+              <stringProp name="SystemSampler.command">&quot;C:\Program Files (x86)\Google\Chrome\Application\chrome.exe&quot;</stringProp>
+              <elementProp name="SystemSampler.arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="Argument">
+                    <stringProp name="Argument.name"></stringProp>
+                    <stringProp name="Argument.value"> /new-window</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                  <elementProp name="" elementType="Argument">
+                    <stringProp name="Argument.name"></stringProp>
+                    <stringProp name="Argument.value">http://${maasHost_IP}:15672</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <elementProp name="SystemSampler.environment" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
+              </elementProp>
+              <stringProp name="SystemSampler.directory"></stringProp>
+            </SystemSampler>
+            <hashTree/>
+          </hashTree>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="*****" enabled="true">
+            <stringProp name="BeanShellSampler.query"></stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - set Test Name" enabled="true">
+            <stringProp name="BeanShellSampler.query">testName=&quot; ping -c 5 maas &quot;;
+vars.put(&quot;testName&quot;,testName);
+ 
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - default status to PASSED" enabled="true">
+            <stringProp name="BeanShellSampler.query">vars.put(&quot;status&quot;,&quot; PASSED &quot;);
+ 
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <org.apache.jmeter.protocol.ssh.sampler.SSHSampler guiclass="TestBeanGUI" testclass="org.apache.jmeter.protocol.ssh.sampler.SSHSampler" testname="SSH Command -ping maas" enabled="false">
+            <stringProp name="TestPlan.comments">${__property(hostNameIP,)}</stringProp>
+            <stringProp name="command">ping -c 5 maas</stringProp>
+            <stringProp name="hostname">${__property(dockerRepoNode,)}</stringProp>
+            <stringProp name="password">${__property(password,)}</stringProp>
+            <intProp name="port">22</intProp>
+            <stringProp name="username">${__property(username,)}</stringProp>
+          </org.apache.jmeter.protocol.ssh.sampler.SSHSampler>
+          <hashTree>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor (?:\S+ ){1}(\S+)" enabled="true">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">maasHostPingResponse</stringProp>
+              <stringProp name="RegexExtractor.regex">(.*\b bytes from \b.*)</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">not_defined</stringProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+              <stringProp name="TestPlan.comments">(?:\S+ ){1} matches 1 word (\S+) will get the next word 
+which is the servername in the following response 
+&quot;Linux apiproxyt05 2.6.18-194.el5 #1 SMP Tue Mar 16 21:52:39 EDT 2010 x86_64 x86_64 x86_64 GNU/Linux&quot;</stringProp>
+            </RegexExtractor>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - ping maas" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="690155596">(?i)--- maas.${__property(defaultDNSzone,)} ping statistics ---</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">2</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <org.apache.jmeter.protocol.ssh.sampler.SSHCommandSampler guiclass="TestBeanGUI" testclass="org.apache.jmeter.protocol.ssh.sampler.SSHCommandSampler" testname="SSH Command - ping -c 5 maas" enabled="true">
+            <stringProp name="hostname">${MaaS_host}</stringProp>
+            <intProp name="port">22</intProp>
+            <intProp name="connectionTimeout">500000</intProp>
+            <stringProp name="username">${__property(username,)}</stringProp>
+            <stringProp name="password">${__property(password,)}</stringProp>
+            <stringProp name="sshkeyfile"></stringProp>
+            <stringProp name="passphrase"></stringProp>
+            <stringProp name="command">ping -c 5 maas</stringProp>
+            <boolProp name="useReturnCode">false</boolProp>
+            <boolProp name="printStdErr">false</boolProp>
+            <stringProp name="TestPlan.comments">${__property(dockerRepoNode,)}</stringProp>
+          </org.apache.jmeter.protocol.ssh.sampler.SSHCommandSampler>
+          <hashTree>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor (?:\S+ ){1}(\S+)" enabled="true">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">maasHostPingResponse</stringProp>
+              <stringProp name="RegexExtractor.regex">(.*)</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">not_defined</stringProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+              <stringProp name="TestPlan.comments">(?:\S+ ){1} matches 1 word (\S+) will get the next word 
+which is the servername in the following response 
+&quot;Linux apiproxyt05 2.6.18-194.el5 #1 SMP Tue Mar 16 21:52:39 EDT 2010 x86_64 x86_64 x86_64 GNU/Linux&quot;</stringProp>
+            </RegexExtractor>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - ping maas" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="690155596">(?i)--- maas.${__property(defaultDNSzone,)} ping statistics ---</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">2</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller - log FAILURES" enabled="true">
+            <stringProp name="IfController.condition">${JMeterThread.last_sample_ok}==false</stringProp>
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+          </IfController>
+          <hashTree>
+            <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler" enabled="true">
+              <stringProp name="BeanShellSampler.query">// FAILED TESTS
+vars.put(&quot;status&quot;,&quot; FAILED &quot;);
+
+failedTests = props.getProperty(&quot;testsFailed&quot;);
+int failed = Integer.parseInt(failedTests);
+failed = failed + 1 ;
+//failedTests  = failedTests + 1 ;
+props.setProperty(&quot;testsFailed&quot;,failed.toString());
+</stringProp>
+              <stringProp name="BeanShellSampler.filename"></stringProp>
+              <stringProp name="BeanShellSampler.parameters"></stringProp>
+              <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+            </BeanShellSampler>
+            <hashTree/>
+          </hashTree>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="----- ping mass  ${maasHostPingResponse}" enabled="true">
+            <stringProp name="BeanShellSampler.query">//update log
+ 
+log.info(&quot;ping maas : &quot; + vars.get(&quot;maasHostPingResponse&quot;) );</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - calc total Tests" enabled="true">
+            <stringProp name="BeanShellSampler.query">// Increment Total Test Count
+//
+
+totalTests = props.getProperty(&quot;testsTotal&quot;);
+failedTests = props.getProperty(&quot;testsFailed&quot;);
+passedTests = props.getProperty(&quot;testsPassed&quot;);
+  
+int tot = Integer.parseInt(totalTests);
+int fail = Integer.parseInt(failedTests);
+tot  = tot + 1;
+int passed =  tot - fail;
+
+props.setProperty(&quot;testsTotal&quot;,tot.toString());
+props.setProperty(&quot;testsPassed&quot;,passed.toString());
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - log status" enabled="true">
+            <stringProp name="BeanShellSampler.query">SPACE = &quot; &quot;;
+PAD = &quot;     &quot;;
+COLON = &quot;:&quot;;
+
+log.info( PAD + &quot;${__P(LOGMARKER,__ACP__)}&quot; + SPACE + vars.get(&quot;serviceName&quot;) + COLON +  SPACE + vars.get(&quot;testName&quot;) + vars.get(&quot;status&quot;) );</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="*****" enabled="true">
+            <stringProp name="BeanShellSampler.query"></stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - set Test Name" enabled="true">
+            <stringProp name="BeanShellSampler.query">testName=&quot; http://&quot; + vars.get(&quot;maasHost_IP&quot;) +  &quot;:15672 &quot;;
+vars.put(&quot;testName&quot;,testName);
+ 
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - default status to PASSED" enabled="true">
+            <stringProp name="BeanShellSampler.query">vars.put(&quot;status&quot;,&quot; PASSED &quot;);
+ 
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value"></stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">${maasHost_IP}</stringProp>
+            <stringProp name="HTTPSampler.port">15672</stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path"></stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <boolProp name="HTTPSampler.monitor">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49586">200</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">1</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller - log FAILURES" enabled="true">
+            <stringProp name="IfController.condition">${JMeterThread.last_sample_ok}==false</stringProp>
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+          </IfController>
+          <hashTree>
+            <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler" enabled="true">
+              <stringProp name="BeanShellSampler.query">// FAILED TESTS
+vars.put(&quot;status&quot;,&quot; FAILED &quot;);
+
+failedTests = props.getProperty(&quot;testsFailed&quot;);
+int failed = Integer.parseInt(failedTests);
+failed = failed + 1 ;
+//failedTests  = failedTests + 1 ;
+props.setProperty(&quot;testsFailed&quot;,failed.toString());
+</stringProp>
+              <stringProp name="BeanShellSampler.filename"></stringProp>
+              <stringProp name="BeanShellSampler.parameters"></stringProp>
+              <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+            </BeanShellSampler>
+            <hashTree/>
+          </hashTree>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - calc total Tests" enabled="true">
+            <stringProp name="BeanShellSampler.query">// Increment Total Test Count
+//
+
+totalTests = props.getProperty(&quot;testsTotal&quot;);
+failedTests = props.getProperty(&quot;testsFailed&quot;);
+passedTests = props.getProperty(&quot;testsPassed&quot;);
+  
+int tot = Integer.parseInt(totalTests);
+int fail = Integer.parseInt(failedTests);
+tot  = tot + 1;
+int passed =  tot - fail;
+
+props.setProperty(&quot;testsTotal&quot;,tot.toString());
+props.setProperty(&quot;testsPassed&quot;,passed.toString());
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - log status" enabled="true">
+            <stringProp name="BeanShellSampler.query">SPACE = &quot; &quot;;
+PAD = &quot;     &quot;;
+COLON = &quot;:&quot;;
+
+log.info( PAD + &quot;${__P(LOGMARKER,__ACP__)}&quot; + SPACE + vars.get(&quot;serviceName&quot;) + COLON +  SPACE + vars.get(&quot;testName&quot;) + vars.get(&quot;status&quot;) );</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller - GUI_mode == &quot;true&quot;" enabled="true">
+            <stringProp name="IfController.condition">&quot;${__property(GUI_mode,)}&quot; ==  &quot;true&quot;</stringProp>
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+          </IfController>
+          <hashTree>
+            <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree - MaaS" enabled="true">
+              <boolProp name="ResultCollector.error_logging">false</boolProp>
+              <objProp>
+                <name>saveConfig</name>
+                <value class="SampleSaveConfiguration">
+                  <time>true</time>
+                  <latency>true</latency>
+                  <timestamp>true</timestamp>
+                  <success>true</success>
+                  <label>true</label>
+                  <code>true</code>
+                  <message>true</message>
+                  <threadName>true</threadName>
+                  <dataType>true</dataType>
+                  <encoding>false</encoding>
+                  <assertions>true</assertions>
+                  <subresults>true</subresults>
+                  <responseData>false</responseData>
+                  <samplerData>false</samplerData>
+                  <xml>false</xml>
+                  <fieldNames>false</fieldNames>
+                  <responseHeaders>false</responseHeaders>
+                  <requestHeaders>false</requestHeaders>
+                  <responseDataOnError>false</responseDataOnError>
+                  <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+                  <assertionsResultsToSave>0</assertionsResultsToSave>
+                  <bytes>true</bytes>
+                  <threadCounts>true</threadCounts>
+                </value>
+              </objProp>
+              <stringProp name="filename"></stringProp>
+            </ResultCollector>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - verify FAILURE log statements" enabled="false">
+          <stringProp name="BeanShellSampler.query">if ( props.getProperty(&quot;inventoryFile&quot;) != null) {
+   inventoryFileName = props.getProperty(&quot;inventoryFile&quot;);
+}
+else {
+	
+	inventoryFileName = &quot;/home/docker/cloud-service-scripts/playbooks/inventory&quot;;
+}
+testName=&quot; /usr/bin/ansible -i &quot; + inventoryFileName + &quot; maas --list-hosts 2&gt;&amp;1 &quot;;
+
+status = &quot; FAILED &quot;;
+
+log.info(&quot;${__P(LOGMARKER,__ACP__)}&quot; + testName + status );
+testName=&quot; uname -n &quot;;
+status = &quot; FAILED &quot;;
+log.info(&quot;${__P(LOGMARKER,__ACP__)}&quot; + testName + status );
+testName=&quot; host maas &quot;;
+status = &quot; FAILED &quot;;
+
+log.info(&quot;${__P(LOGMARKER,__ACP__)}&quot; + testName + status );
+
+testName=&quot; ping -c 5 maas &quot;;
+status = &quot; FAILED &quot;;
+log.info(&quot;${__P(LOGMARKER,__ACP__)}&quot; + testName + status );
+
+</stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="*****" enabled="true">
+          <stringProp name="BeanShellSampler.query"></stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Simple Controller -  Check if maas can ping DockerRepo" enabled="true">
+          <stringProp name="TestPlan.comments"> Check if maas can ping DockerRepo</stringProp>
+        </GenericController>
+        <hashTree>
+          <org.apache.jmeter.protocol.ssh.sampler.SSHSampler guiclass="TestBeanGUI" testclass="org.apache.jmeter.protocol.ssh.sampler.SSHSampler" testname="SSH Command-maas IP Address" enabled="true">
+            <stringProp name="TestPlan.comments">Get maas IP Address</stringProp>
+            <stringProp name="hostname">${__property(dockerRepoNode,)}</stringProp>
+            <intProp name="port">22</intProp>
+            <stringProp name="username">${__property(username,)}</stringProp>
+            <stringProp name="password">${__property(password,)}</stringProp>
+            <stringProp name="command">host maas</stringProp>
+          </org.apache.jmeter.protocol.ssh.sampler.SSHSampler>
+          <hashTree>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor-Get zookeeper cluster IP Address" enabled="true">
+              <stringProp name="TestPlan.comments">Get zookeeper cluster IP Address</stringProp>
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">maas_host_ip</stringProp>
+              <stringProp name="RegexExtractor.regex">\w+\.\w+\.\w+\.\w+\.\w+\s+\w+\s+\w+\s+(\d+\.\d+\.\d+\.\d+)</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">-1</stringProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+            </RegexExtractor>
+            <hashTree/>
+          </hashTree>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler -" enabled="true">
+            <stringProp name="BeanShellSampler.query">
+log.info(&quot;maas_host_ip :&quot; +   vars.get(&quot;maas_host_ip&quot;));
+ 
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - set Test Name" enabled="true">
+            <stringProp name="BeanShellSampler.query">testName=&quot;ping dockerrepo from maas&quot;;
+vars.put(&quot;testName&quot;,testName);
+testNameLogText = &quot;verify dockerrepo is reachable from maas&quot;;
+
+vars.put(&quot;testNameLogText&quot;,testNameLogText);
+//log.info(&quot;testnameLogText : ${testNameLogText}&quot;);
+ 
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - default status to PASSED" enabled="true">
+            <stringProp name="BeanShellSampler.query">vars.put(&quot;status&quot;,&quot; PASSED &quot;);
+ 
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler  -BeanShell Sampler  -set Test Name to ping dockerrepo from SRDaas VIP" enabled="false">
+            <stringProp name="TestPlan.comments">BeanShell Sampler  -set Test Name to ping dockerrepo from SRDAas VIP</stringProp>
+            <stringProp name="BeanShellSampler.query">//Set testName = ping -c 2 dockerrepo
+
+testName1=&quot;ping -c 2 dockerrepo&quot;;
+
+
+vars.put(&quot;testName1&quot;,testName1);
+
+
+testNameLogText = &quot;verify dockerrepo is reachable from SRDaas&quot;;
+
+vars.put(&quot;testNameLogText&quot;,testNameLogText);
+log.info(&quot;testnameLogText : ${testNameLogText}&quot;);
+
+
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <org.apache.jmeter.protocol.ssh.sampler.SSHCommandSampler guiclass="TestBeanGUI" testclass="org.apache.jmeter.protocol.ssh.sampler.SSHCommandSampler" testname="SSH Command - ping -c 5 dockerrepo" enabled="true">
+            <stringProp name="hostname">${maas_host_ip}</stringProp>
+            <intProp name="port">22</intProp>
+            <intProp name="connectionTimeout">6000000</intProp>
+            <stringProp name="username">${__property(username,)}</stringProp>
+            <stringProp name="password">${__property(password,)}</stringProp>
+            <stringProp name="sshkeyfile"></stringProp>
+            <stringProp name="passphrase"></stringProp>
+            <stringProp name="command">ping -c 5 dockerrepo</stringProp>
+            <boolProp name="useReturnCode">false</boolProp>
+            <boolProp name="printStdErr">false</boolProp>
+            <stringProp name="TestPlan.comments">${__property(dockerRepoNode,)}</stringProp>
+          </org.apache.jmeter.protocol.ssh.sampler.SSHCommandSampler>
+          <hashTree>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor (?:\S+ ){1}(\S+)" enabled="true">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">dockerrepoPingResponse</stringProp>
+              <stringProp name="RegexExtractor.regex">(.*)</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">not_defined</stringProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+              <stringProp name="TestPlan.comments">(?:\S+ ){1} matches 1 word (\S+) will get the next word 
+which is the servername in the following response 
+&quot;Linux apiproxyt05 2.6.18-194.el5 #1 SMP Tue Mar 16 21:52:39 EDT 2010 x86_64 x86_64 x86_64 GNU/Linux&quot;</stringProp>
+            </RegexExtractor>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - ping dockerrepo" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="994789248">(?i)--- dockerrepo.${__property(defaultDNSzone,)} ping statistics ---</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">2</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller - log FAILURES" enabled="true">
+            <stringProp name="IfController.condition">${JMeterThread.last_sample_ok}==false</stringProp>
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+          </IfController>
+          <hashTree>
+            <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler" enabled="true">
+              <stringProp name="BeanShellSampler.query">
+// FAILED TESTS
+vars.put(&quot;status&quot;,&quot; FAILED &quot;);
+
+failedTests = props.getProperty(&quot;testsFailed&quot;);
+int failed = Integer.parseInt(failedTests);
+failed = failed + 1 ;
+//failedTests  = failedTests + 1 ;
+props.setProperty(&quot;testsFailed&quot;,failed.toString());</stringProp>
+              <stringProp name="BeanShellSampler.filename"></stringProp>
+              <stringProp name="BeanShellSampler.parameters"></stringProp>
+              <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+            </BeanShellSampler>
+            <hashTree/>
+          </hashTree>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="----- ping dockerrepo  ${dockerrepoPingResponse}" enabled="false">
+            <stringProp name="BeanShellSampler.query">//update log
+ 
+log.info(&quot;ping dockerrepo : &quot; + vars.get(&quot;dockerrepoPingResponse&quot;) );</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="----- ping dockerrepor get result = ----- ping dockerrepo  ${dockerrepoPingResponse}" enabled="false">
+            <stringProp name="BeanShellSampler.query">//update log
+ 
+log.info(&quot;/usr/sbin/etcdctl --no-sync -peers ${etcdcluster_IP}:4001 get /etcdctl/test/test99  : &quot; + vars.get(&quot;etcdclusteGetResult&quot;) );</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - calc total Tests" enabled="true">
+            <stringProp name="BeanShellSampler.query">// Increment Total Test Count
+//
+
+totalTests = props.getProperty(&quot;testsTotal&quot;);
+failedTests = props.getProperty(&quot;testsFailed&quot;);
+passedTests = props.getProperty(&quot;testsPassed&quot;);
+  
+int tot = Integer.parseInt(totalTests);
+int fail = Integer.parseInt(failedTests);
+tot  = tot + 1;
+int passed =  tot - fail;
+
+props.setProperty(&quot;testsTotal&quot;,tot.toString());
+props.setProperty(&quot;testsPassed&quot;,passed.toString());
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler - log status" enabled="true">
+            <stringProp name="BeanShellSampler.query">
+SPACE = &quot; &quot;;
+PAD = &quot;     &quot;;
+COLON = &quot;:&quot;;
+
+
+log.info( PAD + &quot;${__P(LOGMARKER,__ACP__)}&quot; + SPACE + vars.get(&quot;serviceName&quot;) + COLON +  SPACE + vars.get(&quot;testName&quot;) + vars.get(&quot;status&quot;) );</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+        </hashTree>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="*****" enabled="true">
+          <stringProp name="BeanShellSampler.query"></stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler MaaS Post Run" enabled="true">
+          <boolProp name="displayJMeterProperties">true</boolProp>
+          <boolProp name="displayJMeterVariables">true</boolProp>
+          <boolProp name="displaySystemProperties">false</boolProp>
+        </DebugSampler>
+        <hashTree/>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell  -get timestamp" enabled="true">
+          <stringProp name="TestPlan.comments">timestamp to display in results tree</stringProp>
+          <stringProp name="BeanShellSampler.query">import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+Date now = new Date(); // get current time
+
+SimpleDateFormat sdf = new SimpleDateFormat(&quot;MM/dd/yyyy h:mm:ss a&quot;);     
+String myEnddate = sdf.format(now); // format date as string
+vars.put(&quot;myEnddate&quot;,myEnddate); // save date to JMeter variable named &quot;mydate&quot;</stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="END MaaS - Messaging as a Sevice for Site Name = ${__property(serverSite,)} at ${myEnddate}" enabled="true">
+          <stringProp name="TestPlan.comments">display siteName and Start time </stringProp>
+          <stringProp name="BeanShellSampler.query">log.info(&quot;**********&quot;);
+log.info(&quot;End of test for MaaS - Messaging as a Service for &quot; + props.getProperty(&quot;siteName&quot;) + &quot; at &quot; + vars.get(&quot;myEnddate&quot;));
+log.info(&quot;**********&quot;);</stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

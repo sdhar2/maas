@@ -1,0 +1,22 @@
+[
+	{
+	 "serviceName" : "maas",
+	 "serviceVersion": "2.0.3",
+	 "serviceReleaseArtifact": "cloud-platform-messaging",
+	 "releasedArtifacts":
+	  [
+	    {
+   		  "arrs/arrs-cloud-base-rabbitmq": "2.0.0.3",
+          "arrs/arrs-cloud-base-rabbitmq-app-monitor": "2.0.0.5"
+        }
+	  ],
+	  "releaseDependency":
+	  [
+	    {
+	    	"monaas": "2.0.0",
+ 		"srdaas": "2.0.0",
+ 		"paas" : "2.0.0"
+        }
+	  ]
+	}
+]

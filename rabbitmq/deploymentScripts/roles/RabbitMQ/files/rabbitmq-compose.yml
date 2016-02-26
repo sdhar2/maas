@@ -1,0 +1,113 @@
+rabbitmq:
+  image: dockerrepo:5000/arrs/arrs-cloud-base-rabbitmq:2.0.0.1
+  restart: always
+  privileged: true
+  ports:
+   - "5672:5672"
+   - "15672:15672"
+   - "25672:25672"
+   - "4369:4369"
+  log_driver: "json-file"
+  log_opt:
+   max-size: "100m"
+   max-file: "10"
+  environment:
+   - MODE=HAMODE_MACRO
+   - HOST_IP=HOST_IP_MACRO
+   - HOST_NAME=HOST_NAME_MACRO
+   - IS_MASTER=false
+   - NUM_NODES_IN_CLUSTER=2
+   - MONITOR_PORT=8375
+  volumes:
+   - /opt/etcd/config:/opt/etcd/config
+   - /var/opt/rabbitmq/log:/var/log/rabbitmq
+   - /etc/localtime:/etc/localtime:ro
+  hostname: HOST_NAME_MACRO
+
+appObserverRabbitMQ:
+  image: dockerrepo:5000/arrs/arrs-cloud-base-app-observer:2.1.0.2
+  restart: always
+  privileged: true
+  log_driver: "json-file"
+  log_opt:
+   max-size: "100m"
+   max-file: "10"
+  ports:
+   - "8375:8375"
+   - "8377:8377"
+  environment:
+   SECURE_PORT: 8375
+   NON_SECURE_PORT: 8377
+   PRODUCT_NAME: ACP-RABBITMQ
+   APP_WEBSERVICE_FQDN: HOST_IP_MACRO
+   APP_WEBSERVICE_PORT: 7503
+  volumes:
+   - /var/opt/app-observer-rabbitmq/config:/opt/app-observer/conf/external
+   - /var/opt/app-observer-rabbitmq/logs:/opt/app-observer/logs
+
+rmqapp:
+  image: dockerrepo:5000/arrs/arrs-cloud-base-rabbitmq-app-monitor:2.0.0.2
+  stdin_open: true
+  tty: true
+  restart: always
+  privileged: true
+  log_driver: "json-file"
+  log_opt:
+   max-size: "100m"
+   max-file: "10"
+  ports:
+   - "7503:7503"
+  environment:
+   LISTEN_PORT: 7503
+   APP_OBSERVER_PORT: 8377
+   HOST_IP: HOST_IP_MACRO
+   HOST_NAME: HOST_NAME_MACRO
+   RMQ_MGMT_PORT: 15672
+   RMQ_USER: "arris"
+   RMQ_PASS: "arris"
+   MODE: HAMODE_MACRO
+  volumes:
+   - /usr/sbin:/usr/local/sbin
+   - /var/log/app_monitor/rmq:/tmp
+   - /var/opt/app-monitor-rmq/perf_monitor/logs:/opt/perf_monitor/logs
+   - /var/opt/app-monitor-rmq/status_monitor/logs:/opt/status_monitor/logs
+
+keymanager:
+  image: dockerrepo:5000/arrs/arrs-cloud-base-keymanager:2.0.0.2
+  stdin_open: true
+  tty: true
+  restart: always
+  privileged: true
+  log_driver: "json-file"
+  log_opt:
+   max-size: "100m"
+   max-file: "10"
+  environment:
+  - HOST_IP=HOST_IP_MACRO
+  - HOST_NAME=HOST_NAME_MACRO
+  volumes:
+   - /var/log:/tmp
+  volumes_from:
+  - rabbitmq
+
+logstashforwarder:
+  image: dockerrepo:5000/arrs/arrs-cloud-base-logstash-forwarder:2.1.0.2
+  restart: always
+  privileged: true
+  log_driver: "json-file"
+  log_opt:
+   max-size: "100m"
+   max-file: "10"
+  environment:
+   LS_HEAP_SIZE: 1g
+   CA_CERT_LOCATION: /etc/elk-keys/ca.pem
+   ES_HOST: ELK_DNSNAME_MACRO
+   NODE_NAME: HOST_IP_MACRO
+  volumes:
+   - /var/opt/logstash-forwarder/log:/var/log/supervisor
+   - /var/opt/logstash-forwarder/conf:/etc/logstash-forwarder
+   - /var/opt/logstash-forwarder/keys:/etc/elk-keys
+   - /etc/localtime:/etc/localtime:ro
+   - /var/opt/:/var/opt/
+  volumes_from:
+   - rabbitmq  

@@ -1,0 +1,25 @@
+[	
+	{
+	 "Static":
+	  [
+	    {
+		"key": "/config/advisor/rabbitmq@$VarHostName",
+		"value": "$VarHostIP:8375"    
+	    },
+	    {
+        "key": "/productGroups/maas/rabbitmq@$VarHostName",
+        "value": "$VarHostIP"
+        }
+	  ],
+	  "KeepAlive" :
+	  [
+	    {
+	      "key": "/maas/rabbitmq/$VarHostName",
+	      "value": "$VarHostIP",
+	      "healthcheck":"/opt/etcd/status_checkers/generic_key_checker.sh",
+	      "interval" :60,
+	      "initialdelay":300
+	    }
+	  ]
+	}
+]

@@ -1,0 +1,104 @@
+{
+    "ossAttribution": {
+        "product": "rabbitmq-messaging",
+        "productVersion": "1.0.0",
+        "entries": [
+            {
+                "component": "Basho",
+                "componentVersion": "Included in RabbitMQ 3.3.1",
+                "componentUrl": "https://www.rabbitmq.com/mpl.html",
+                "license": "Apache 2.0",
+                "licenseUrl": "licenses/LICENSE-Apache-Basho",
+                "notice": ""
+            },
+            {
+                "component": "ExplorerCanvas",
+                "componentVersion": "Included in RabbitMQ 3.3.1",
+                "componentUrl": "https://www.rabbitmq.com/mpl.html",
+                "license": "Apache 2.0",
+                "licenseUrl": "licenses/LICENSE-APACHE2-ExplorerCanvas",
+                "notice": ""
+            },
+            {
+                "component": "Stomp Websocket",
+                "componentVersion": "Included in RabbitMQ 3.3.1",
+                "componentUrl": "https://www.rabbitmq.com/mpl.html",
+                "license": "Apache 2.0",
+                "licenseUrl": "licenses/LICENSE-APL2-Stomp-Websocket",
+                "notice": ""
+            },
+            {
+                "component": "base64js",
+                "componentVersion": "Included in RabbitMQ 3.3.1",
+                "componentUrl": "https://www.rabbitmq.com/mpl.html",
+                "license": "Berkley Systems",
+                "licenseUrl": "licenses/LICENSE-BSD-base64js",
+                "notice": ""
+            },
+            {
+                "component": "glMatrix",
+                "componentVersion": "Included in RabbitMQ 3.3.1",
+                "componentUrl": "https://www.rabbitmq.com/mpl.html",
+                "license": "Berkley Systems",
+                "licenseUrl": "licenses/LICENSE-BSD-glMatrix",
+                "notice": ""
+            },
+            {
+                "component": "EJS10",
+                "componentVersion": "Included in RabbitMQ 3.3.1",
+                "componentUrl": "https://www.rabbitmq.com/mpl.html",
+                "license": "MIT",
+                "licenseUrl": "licenses/LICENSE-MIT-EJS10",
+                "notice": ""
+            },
+            {
+                "component": "eldap",
+                "componentVersion": "3.3.1",
+                "componentUrl": "https://www.rabbitmq.com/mpl.html",
+                "license": "MIT",
+                "licenseUrl": "licenses/LICENSE-MIT-eldap",
+                "notice": ""
+            },
+            {
+                "component": "Flot",
+                "componentVersion": "Included in RabbitMQ 3.3.1",
+                "componentUrl": "https://www.rabbitmq.com/mpl.html",
+                "license": "MIT",
+                "licenseUrl": "licenses/LICENSE-MIT-Flot",
+                "notice": ""
+            },
+            {
+                "component": "jQuery164",
+                "componentVersion": "Included in RabbitMQ 3.3.1",
+                "componentUrl": "https://www.rabbitmq.com/mpl.html",
+                "license": "MIT",
+                "licenseUrl": "licenses/LICENSE-MIT-jQuery164",
+                "notice": ""
+            },
+            {
+                "component": "Mochi",
+                "componentVersion": "Included in RabbitMQ 3.3.1",
+                "componentUrl": "https://www.rabbitmq.com/mpl.html",
+                "license": "MIT",
+                "licenseUrl": "licenses/LICENSE-MIT-Mochi",
+                "notice": ""
+            },
+            {
+                "component": "Sammy060",
+                "componentVersion": "Included in RabbitMQ 3.3.1",
+                "componentUrl": "https://www.rabbitmq.com/mpl.html",
+                "license": "MIT",
+                "licenseUrl": "licenses/LICENSE-MIT-Sammy060",
+                "notice": ""
+            },
+            {
+                "component": "RabbitMQ",
+                "componentVersion": "Included in RabbitMQ 3.3.1",
+                "componentUrl": "https://www.rabbitmq.com/mpl.html",
+                "license": "MOZILLA PUBLIC LICENSE 1.1",
+                "licenseUrl": "licenses/LICENSE-MPL-RabbitMQ",
+                "notice": ""
+            }
+        ]
+    }
+}

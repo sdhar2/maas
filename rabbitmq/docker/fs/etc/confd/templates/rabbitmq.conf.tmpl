@@ -1,0 +1,3 @@
+{{range $dir := lsdir "/maas"}}
+    {{$subdir := printf "/maas/%s" $dir}} maas=[{{range $key := ls $subdir}} {{$keylocation := printf "%s/%s" $subdir $key}} {{printf "{%s" $keylocation}} {{getv (printf "%s" $keylocation)}} false } {{end}}]
+{{end}}

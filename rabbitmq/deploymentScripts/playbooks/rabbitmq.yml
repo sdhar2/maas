@@ -1,0 +1,7 @@
+---
+- name: Deploy rabbitmq service on maas
+  hosts: maas
+  sudo: true
+  sudo_user: root
+  roles:
+     - RabbitMQ

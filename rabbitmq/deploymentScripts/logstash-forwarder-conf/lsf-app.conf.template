@@ -1,0 +1,33 @@
+{
+  "files": [
+     {
+      "paths": [ "/var/opt/app-observer-rabbitmq/logs/log.txt*" ],
+      "fields": {
+                "type": "appObserverLog",
+                "application": "appObserver",
+                "source": "$NODE_NAME",
+                "logFormat": "advisorLogFormat"
+      }
+    },
+    {
+      "paths": [ "/var/log/rabbitmq/startup*" ],
+      "fields": 
+      {
+        "type": "rabbitmqStartupLog",
+        "application": "rabbitmq",
+        "source": "$NODE_NAME",
+        "logFormat": "rabbitmqFormat"
+      }
+    },
+    {
+      "paths": [ "/var/log/rabbitmq/rabbit*" ],
+      "fields":
+      {
+        "type": "rabbitmqLog",
+        "application": "rabbitmq",
+        "source": "$NODE_NAME",
+        "logFormat": "rabbitmqFormat"
+      }
+    }
+  ]
+}

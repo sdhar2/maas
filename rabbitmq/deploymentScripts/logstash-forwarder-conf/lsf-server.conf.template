@@ -1,0 +1,11 @@
+{
+  "network": {
+    "servers": [ "$ES_HOST:9000" ],
+
+    "ssl certificate": "/etc/elk-keys/client-cert.pem",
+    "ssl key":         "/etc/elk-keys/client-private-key-nopassphrase.pem",
+    "ssl ca":          "$CA_CERT_LOCATION",
+
+    "timeout": 15
+  }
+}

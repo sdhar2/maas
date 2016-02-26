@@ -1,0 +1,50 @@
+---
+    - name: create rabbitmq log folder
+      command: mkdir -p /var/opt/rabbitmq/log
+    - name: configure rabbitmq log folder
+      command: chmod 777 /var/opt/rabbitmq/log
+    - name: copy the rabbitmq compose file
+      copy: src=rabbitmq-compose.yml dest=/arris/compose/rabbitmq-compose.yml mode=755
+    - name: update the host ip on compose file
+      command: sed -i "s/HOST_IP_MACRO/{{ansible_eth0.ipv4.address}}/g" /arris/compose/rabbitmq-compose.yml
+    - name: update the host name on compose file
+      command: sed -i "s/HOST_NAME_MACRO/{{ansible_hostname}}/g" /arris/compose/rabbitmq-compose.yml
+    - name: look up the ELK DNS name
+      shell: nslookup elk | grep "elk" | awk '{ print $2}'
+      register: nslookup
+    - name: update ELK DNS name on compose file
+      command: sed -i "s/ELK_DNSNAME_MACRO/{{nslookup.stdout}}/g" /arris/compose/rabbitmq-compose.yml
+    - name: update the HA flag on compose file for multi-VM environment
+      command: sed -i "s/HAMODE_MACRO/HA/g" /arris/compose/rabbitmq-compose.yml
+      when: single_vm_deployment == "no"
+    - name: update the HA flag on compose file for single VM environment
+      command: sed -i "s/HAMODE_MACRO/noHA/g" /arris/compose/rabbitmq-compose.yml
+    - name: update the is_master flag  on compose file
+      command: sed -i "s/IS_MASTER=false/IS_MASTER=true/g" /arris/compose/rabbitmq-compose.yml
+      run_once: true
+    - name: Grab iptables rules for survey of firewall (INPUT rules only)
+      shell: iptables -n --list INPUT
+      register: iptablesinputtablerules
+      always_run: yes
+    - name: punch the holes in the firewall
+      command: iptables -I INPUT -p tcp --dport {{ item }} -j ACCEPT
+      when: iptablesinputtablerules.stdout.find("dpt:{{ item }}") == -1
+      with_items:
+         - 5672
+         - 15672
+         - 25672
+         - 4369
+         - 8375
+         - 8377
+         - 7503
+      notify: save iptables
+    - name: pull maas containers
+      command: docker-compose -f /arris/compose/rabbitmq-compose.yml pull --allow-insecure-ssl
+      async: 180
+    - name: start the compose file
+      command: docker-compose -f /arris/compose/rabbitmq-compose.yml up -d
+    - name: kill status checker script
+      shell: killall rmq_status_checker.sh
+      ignore_errors: true
+    - name: start status checker script
+      shell: nohup /usr/sbin/rmq_status_checker.sh  &

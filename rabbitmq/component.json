@@ -1,0 +1,9 @@
+[
+	{
+        "componentName":    "RabbitMQ",
+        "componentDescr":   "ARRIS Cloud Platform: RabbitMQ",
+        "containerName":    "arrs/arrs-cloud-base-rabbitmq",
+        "componentVersion": "2.0.0.0",
+        "installFileBase":  "arrs-cloud-messaging-rabbitmq"
+	}
+]

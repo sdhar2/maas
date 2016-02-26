@@ -1,0 +1,25 @@
+[	
+	{
+	 "Static":
+	  [
+	    {
+		"key": "/config/advisor/$HostName",
+		"value": "$HostIP:8375"    
+	    },
+	    {
+        "key": "/productGroups/maas/$HostName",
+        "value": "$HostIP"
+        }
+	  ],
+	  "KeepAlive" :
+	  [
+	    {
+	      "key": "/maas/rabbitmq/$HostName",
+	      "value": "$HostIP",
+	      "healthcheck":"/usr/sbin/check_rmq_health.sh",
+	      "interval" :60,
+	      "initialdelay":300
+	    }
+	  ]
+	}
+]

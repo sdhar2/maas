@@ -1,0 +1,7 @@
+[template]
+src = "rabbitmq.conf.tmpl"
+dest = "/etc/confd/rabbitmq.conf"
+keys = [
+    "/maas",
+]
+reload_cmd = "sh /etc/confd/update_config.sh"

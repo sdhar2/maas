@@ -1,0 +1,138 @@
+#!/bin/sh
+#
+######################################################################################
+# Copyright 2009-2014 ARRIS Enterprises, Inc. All rights reserved.
+# This program is confidential and proprietary to ARRIS Enterprises, Inc. (ARRIS),
+# and may not be copied, reproduced, modified, disclosed to others, published
+# or used, in whole or in part, without the express prior written permission of ARRIS.
+######################################################################################
+#
+# This script will be executed *after* all the other init scripts.
+# You can put your own initialization stuff in here if you don't
+# want to do the full Sys V style init stuff.
+
+DOCKER_REPO="dockerrepo"
+SERVICE_NAME="maas"
+
+source acpVersion.sh
+
+INIT_FILE="rc.local"
+NEW_INIT_FILE="rc.local.new"
+
+REPO_DIR="/service-scripts/maas/$SERVICE_VERSION/RabbitMQ"
+APP_MONITOR_DIR="/service-scripts/maas/$SERVICE_VERSION/RabbitMQ-app-monitor"
+ETCD_DIR="/service-scripts/srdaas/$SRDAAS_VERSION/etcd/"
+#OBSERVER_DIR="/service-scripts/monaas/$MONAAS_VERSION/appObserver/"
+
+INIT_FILE="rc.local"
+NEW_INIT_FILE="rc.local.new"
+
+LOCAL_DIR="deployment$REPO_DIR"
+MANAGE_DOCKER_RUN_SCRIPT_FILE="manage_run_dockers.sh"
+LSF_DOCKER_RUN_SCRIPT_FILE="lsf_run_docker.sh"
+RABBITMQ_DOCKER_RUN_SCRIPT_FILE="rabbitmq_run_docker.sh"
+
+ETCD_LOCAL_DIR="/usr/sbin"
+ETCD_KEEPALIVE_SCRIPT_FILE="etcdKeepAlive.bash"
+RABBITMQ_LOCAL_DIR="/var/opt/rabbitmq"
+LSF_LOCAL_DIR="/var/opt/logstash-forwarder"
+ETCD_CONFIG_DIR="/opt/etcd"
+
+OBSERVER_DOCKER_RUN_SCRIPT_FILE="app_observer_run_docker.sh"
+APP_MONITOR_DOCKER_RUN_SCRIPT_FILE="rabbitmq_app_monitor_run_docker.sh"
+#OBSERVER_LOCAL_DIR="/var/opt/app-observer"
+
+#FILE1="appobserver.p12"
+#FILE2="pkiworks-test-ca.jks"
+#FILE3="app.conf"
+#STATUS_CHECK_SCRIPT_FILE="rmq_status_checker.sh"
+#ACP_PRODUCT="ACP-RABBITMQ"
+
+#update the time on the VM
+ntpd -gq &
+
+#install docker 1.2 to support modifying rabbitmq hosts file
+
+#rpm -qa | grep docker-io-1.2.0
+
+#if [[ $? -ne 0 ]]; then 
+#  yum -y install /home/fldengr/docker-io-1.2.0-1.el6.x86_64.rpm
+#  service docker restart
+#fi
+
+#wget -r -np -nd -R "index.*" -P deployment http://${DOCKER_REPO}${OBSERVER_DIR}
+#chmod a+x deployment/*
+
+#mv deployment/$OBSERVER_DOCKER_RUN_SCRIPT_FILE /etc/init.d
+
+#if [ ! -d "$OBSERVER_LOCAL_DIR" ]; then
+#  mkdir $OBSERVER_LOCAL_DIR
+#  mkdir $OBSERVER_LOCAL_DIR/config
+#fi
+
+#mv deployment/${FILE1} $OBSERVER_LOCAL_DIR/config
+#mv deployment/${FILE2} $OBSERVER_LOCAL_DIR/config
+#mv deployment/${FILE3} $OBSERVER_LOCAL_DIR/config
+
+#rm -rf deployment
+
+wget -r -np -nd -R "index.*" -P deployment http://${DOCKER_REPO}${APP_MONITOR_DIR}
+chmod a+x deployment/*
+
+#mv deployment/$STATUS_CHECK_SCRIPT_FILE /usr/sbin
+mv deployment/$APP_MONITOR_DOCKER_RUN_SCRIPT_FILE /etc/init.d
+
+rm -rf deployment
+wget -r -np -nH -R "index.*" -P deployment http://$DOCKER_REPO$REPO_DIR/
+chmod -R a+x deployment${REPO_DIR}*
+chmod a+x $LOCAL_DIR/$INIT_FILE
+chmod a+x $LOCAL_DIR/*.sh
+
+mv $LOCAL_DIR/$MANAGE_DOCKER_RUN_SCRIPT_FILE /etc/init.d
+mv $LOCAL_DIR/$RABBITMQ_DOCKER_RUN_SCRIPT_FILE /etc/init.d
+mv $LOCAL_DIR/$LSF_DOCKER_RUN_SCRIPT_FILE /etc/init.d
+mv $LOCAL_DIR/$OBSERVER_DOCKER_RUN_SCRIPT_FILE /etc/init.d
+
+chmod a+x /etc/init.d/$MANAGE_DOCKER_RUN_SCRIPT_FILE
+chmod a+x /etc/init.d/$RABBITMQ_DOCKER_RUN_SCRIPT_FILE
+chmod a+x /etc/init.d/$LSF_DOCKER_RUN_SCRIPT_FILE
+chmod a+x /etc/init.d/$OBSERVER_DOCKER_RUN_SCRIPT_FILE
+
+mv $LOCAL_DIR/*.sh /usr/sbin
+
+if [ ! -d "$RABBITMQ_LOCAL_DIR" ]; then
+  mkdir $RABBITMQ_LOCAL_DIR
+  mkdir $RABBITMQ_LOCAL_DIR/log
+  chmod 777 $RABBITMQ_LOCAL_DIR/log
+fi
+
+rm /etc/rc.d/$NEW_INIT_FILE
+mv $LOCAL_DIR/$INIT_FILE /etc/rc.d/$NEW_INIT_FILE
+
+if [ ! -d "$ETCD_CONFIG_DIR" ]; then
+  mkdir $ETCD_CONFIG_DIR
+  mkdir $ETCD_CONFIG_DIR/config
+fi
+
+mv $LOCAL_DIR/etcd-conf/* $ETCD_CONFIG_DIR/config
+
+if [ ! -d "$LSF_LOCAL_DIR" ]; then
+  mkdir $LSF_LOCAL_DIR
+  mkdir $LSF_LOCAL_DIR/conf
+  mkdir $LSF_LOCAL_DIR/keys
+fi
+
+mv $LOCAL_DIR/logstash-forwarder-conf/* $LSF_LOCAL_DIR/conf
+mv $LOCAL_DIR/logstash-forwarder-keys/* $LSF_LOCAL_DIR/keys
+rm -rf deployment
+
+wget -r -np -nd -R "index.*" -P deployment http://$DOCKER_REPO$ETCD_DIR/$ETCD_KEEPALIVE_SCRIPT_FILE
+chmod a+x deployment/$ETCD_KEEPALIVE_SCRIPT_FILE
+
+mv deployment/$ETCD_KEEPALIVE_SCRIPT_FILE $ETCD_LOCAL_DIR
+
+rm -rf deployment
+
+/etc/init.d/$MANAGE_DOCKER_RUN_SCRIPT_FILE &
+
+touch /var/lock/subsys/local

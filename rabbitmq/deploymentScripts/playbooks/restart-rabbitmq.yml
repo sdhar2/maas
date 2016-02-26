@@ -1,0 +1,20 @@
+---
+- name: Restart rabbitmq service on rabbitmq Cluster 
+  hosts: maas
+  sudo: yes
+  sudo_user: root
+  
+  tasks:
+  - name: stop the rabbitmq compose file
+    command: docker-compose -f /arris/compose/rabbitmq-compose.yml stop
+    async: 60
+    poll: 10   
+     
+  - name: rm rabbitmq 
+    command: docker-compose -f /arris/compose/rabbitmq-compose.yml rm --force
+    async: 60
+    poll: 10   
+     
+  - name: start the compose file 
+    command: docker-compose -f /arris/compose/rabbitmq-compose.yml up -d
+   
